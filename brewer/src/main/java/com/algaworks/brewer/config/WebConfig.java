@@ -19,7 +19,7 @@ import org.thymeleaf.templateresolver.ITemplateResolver;
 import com.algaworks.brewer.controller.CervejasController;
 
 @Configuration
-@ComponentScan(basePackageClasses = CervejasController.class)
+@ComponentScan(basePackageClasses = { CervejasController.class })
 @EnableWebMvc
 public class WebConfig extends WebMvcConfigurerAdapter implements ApplicationContextAware {
 
