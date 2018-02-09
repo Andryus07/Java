@@ -1,17 +1,30 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml">
-<head></head>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	  xmlns:th="http://www.thymeleaf.org">
 
 <body>
 	<h1>Aprendendo Cada Vez mais!!!</h1>
 </body>
 
-	<form method="POST">
+		<div th:each="erro : ${#fields.detailedErrors('${cerveja.*}')}">
+		<span th:text="${erro.message}"></span>
+		</div> 
+	<form method="POST" th:object="${cerveja}">
+	
+	
+		<span th:text="${mensagem}"></span>
+		<br>
+		
 		<label for="sku">SKU:</label> 
-		<input type="text" id="sku" name="sku"></input>
+		<input type="text" id="sku" th:field="*{sku}"></input>
+		
 		<br> 
-		<label for="name">NOME:</label> 
-		<input type="text" id="name" name="name"></input>
+		<label for="nome">NOME:</label> 
+		<input type="text" id="nome" th:field="*{nome}"></input>
+		<br> 
+		
+		<label for="descricao">DESCRIÇÃO:</label> 
+		<input type="text" id="descricao" th:field="*{descricao}" maxlength="50"></input>
 		<br> 
 		<input type="submit" value="Salvar"></input>
 
