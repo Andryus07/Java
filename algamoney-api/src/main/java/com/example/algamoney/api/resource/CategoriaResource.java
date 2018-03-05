@@ -4,6 +4,7 @@ import java.net.URI;
 import java.util.List;
 
 import javax.servlet.http.HttpServletResponse;
+import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -34,7 +35,7 @@ public class CategoriaResource {
 
 	// mapeamento para criar um recurso no banco de dados
 	@PostMapping
-	public ResponseEntity<Categoria> criar(@RequestBody Categoria categoria, HttpServletResponse response) {
+	public ResponseEntity<Categoria> criar(@Valid @RequestBody Categoria categoria, HttpServletResponse response) {
 		Categoria categoriaSalva = categoriaRepository.save(categoria);
 		URI uri = ServletUriComponentsBuilder.fromCurrentRequestUri().path("/{codigo}")
 				.buildAndExpand(categoriaSalva.getCodigo()).toUri();
@@ -43,7 +44,7 @@ public class CategoriaResource {
 		return ResponseEntity.created(uri).body(categoriaSalva);
 	}
 	
-	//Post com regra para usuário que informar valores null, com retorno de erro 404.
+	//Regra para usuário que informar valores null, com retorno de erro 404. E a busca pelo código
 	@GetMapping("/{codigo}")
 	public ResponseEntity<Categoria> buscarPeloCodigo(@PathVariable Long codigo) {
 		Categoria categoria = categoriaRepository.findOne(codigo);
